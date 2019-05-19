@@ -29,19 +29,6 @@ list_t *list_init(int (*match)(const void *key1, const void *key2),
 }
 
 /*************************************************************************
- * Purpose: Allocates a list_item_t. This isolates the code in case
- *          list_item_t changes in future. Allows one code change.
- * Precondition: None
- * Postcondition: Returns valid address on succes. Returns NULL on failure.
- ************************************************************************/
-void *list_alloc_item()
-{
-    list_item_t *new_item = malloc(sizeof(list_item_t));
-    memset(new_item, 0, sizeof(list_item_t));
-    return new_item;
-}
-
-/*************************************************************************
  * Purpose: Appends an item to doubly linked list.
  * Precondition: Pass valid *list and *data to be inserted.
  * Postcondition: Returns 0 on success. Returns -1 on failure.
@@ -51,7 +38,7 @@ int list_append(list_t *list, void *data)
     if(!list)
         return -1;
 
-    list_item_t *new_item = list_alloc_item();
+    list_item_t *new_item = calloc(sizeof(list_item_t), 1);
     if(!new_item)
         return -1;
 
@@ -82,7 +69,7 @@ int list_prepend(list_t *list, void *data)
     if(!list)
         return -1;
 
-    list_item_t *new_item = list_alloc_item();
+    list_item_t *new_item = calloc(sizeof(list_item_t), 1);
     if(!new_item)
         return -1;
 

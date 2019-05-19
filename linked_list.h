@@ -21,7 +21,7 @@ typedef struct list_item_s
 } list_item_t;
 
 /************************************
- * Doubly linked list header
+ *  Doubly linked list header
  *  Keeps track of head, and tail.
  *  Size
  *  Match function pointer
@@ -50,14 +50,6 @@ typedef struct list_s
  ************************************************************************/
 list_t *list_init(int (*match)(const void *, const void *), 
                   void (*destroy)(void *data));
-
-/*************************************************************************
- * Purpose: Allocates a list_item_t. This isolates the code in case
- *          list_item_t changes in future. Allows one code change.
- * Precondition: None
- * Postcondition: Returns valid address on succes. Returns NULL on failure.
- ************************************************************************/
-void *list_alloc_item();
 
 /*************************************************************************
  * Purpose: Appends an item to doubly linked list.
