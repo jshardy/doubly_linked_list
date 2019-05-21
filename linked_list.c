@@ -90,6 +90,12 @@ int list_prepend(list_t *list, void *data)
     return 0;
 }
 
+void *at_index(int index)
+{
+    // TODO
+    return NULL;
+}
+
 /**********************************************************************
  * Purpose: Iterates over list executing user specified function with
  *          the data.
@@ -100,8 +106,8 @@ int list_prepend(list_t *list, void *data)
  *          it will stop iteration and return to you
  *          the linked list item that caused the none
  *          NULL value.
- * Postcondition: Returns 0 on success. Returns the linked list item
- *          that error occured on.
+ * Postcondition: Returns 0 on success. On error the linked list item
+ *          that error occured on is returned.
  ************************************************************************/
 void *list_do(list_t *list, int (*do_func)(void *data))
 {
@@ -174,11 +180,11 @@ int list_remove_data(list_t *list, void *data)
         found->previous->next = found->next;
         found->next->previous = found->previous;
     }
+    
     if(list->destroy)
         (*list->destroy)(found->data);
 
     free(found);
-
     list->size--;
 
     return 0;
@@ -193,16 +199,16 @@ int list_remove_data(list_t *list, void *data)
  ************************************************************************/
 void list_display(list_t *list)
 {
-    if(list)
+    if(!list)
+        return;
+
+    list_item_t *travel = list->head;
+    int i = 0;
+    while(travel)
     {
-        list_item_t *travel = list->head;
-        int i = 0;
-        while(travel)
-        {
-            fprintf(stdout, "%d: %s\n", i, (char*)travel->data);
-            i++;
-            travel = travel->next;
-        }
+        fprintf(stdout, "%d: %s\n", i, (char*)travel->data);
+        i++;
+        travel = travel->next;
     }
 }
 
@@ -217,21 +223,21 @@ void list_display(list_t *list)
  ************************************************************************/
 void list_destroy(list_t *list)
 {
-    if(list)
-    {
-        list_item_t *travel = list->head;
-        while(travel)
-        {
-            list_item_t *to_del = travel;
-            travel = travel->next;
+    if(!list)
+        return;
 
-            if(list->destroy)
-                (*list->destroy)(to_del->data);
-         
-            free(to_del);
-        }
-        free(list);
+    list_item_t *travel = list->head;
+    while(travel)
+    {
+        list_item_t *to_delete = travel;
+        travel = travel->next;
+
+        if(list->destroy)
+            (*list->destroy)(to_delete->data);
+     
+        free(to_delete);
     }
+    free(list);
 }
 
 /**********************************************************************
@@ -246,8 +252,7 @@ void list_destroy(list_t *list)
 void list_set_match(list_t *list, 
     int (*match)(const void *key1, const void *key2))
 {
-    if(match) // Do I need to check for NULL? It's checked before executed.
-        list->match = match;
+    list->match = match;
 }
 
 /************************************************************************
@@ -261,8 +266,18 @@ void list_set_match(list_t *list,
  ************************************************************************/
 void list_set_destroy(list_t *list, void (*destroy)(void *data))
 {
-    if(list)
-        list->destroy = destroy;
+    list->destroy = destroy;
 }
 
+/************************************************************************
+ * Purpose: Gets size of doubly linked list
+ * Precondition: list_init must have been called on list.
+ * Postcondition: Returns size of list
+ ************************************************************************/
+int list_size(list_t *list)
+{
+    if(!list)
+        return -1;
 
+    return list->size;
+}

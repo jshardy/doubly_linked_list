@@ -142,3 +142,9 @@ void list_set_destroy(list_t *, void (*destroy)(void *data));
 void list_set_match(list_t *, 
         int (*match)(const void *, const void *));
 
+/************************************************************************
+* Purpose: Gets size of doubly linked list
+* Precondition: list_init must have been called on list.
+* Postcondition: Returns size of list
+*************************************************************************/
+int list_size(list_t *list);

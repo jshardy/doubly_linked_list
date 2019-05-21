@@ -20,21 +20,25 @@ int main()
     if(!list)
         return -1;
 
-    const int count = 10;
+    const int count = 10000;
     char **strings = alloc_test_strings(count);
     // display_strings(strings);
 
     list_display(list);
         
-    for(int i = 0; i < count; i++)
+    for(int i = 0; i < count / 2; i++)
     {
         list_append(list, strings[i]);
     }
     
-    // Test random deletes
-    // also attempt to cause problems for head delete and tail delete
+    for(int i = count / 2; i < count; i++)
+    {
+        list_prepend(list, strings[i]);
+    }
+
+    
     // list_remove_data(list, strings[0]);
-    list_remove_data(list, strings[2]);
+    // list_remove_data(list, strings[2]);
 
     // list_remove_data(list, strings[9]);
 
@@ -45,14 +49,17 @@ int main()
     // {
     //     list_remove_data(list, strings[i]);
     // }
-    // list_display(list);
+    fprintf(stdout, "Linked list size: %d\n", list->size);
     
     // Test removing from the tail
     for(int i = count - 1; i != 0; i--)
     {
-        list_remove_data(list, strings[i]);
+        // list_remove_data(list, strings[i]);
     }
     
+
+    // fprintf(stdout, "Linked list size: %d\n", list->size);
+
     list_destroy(list);
     //free_strings(strings);
     free(strings); // valgrind doesn't detect this??..
