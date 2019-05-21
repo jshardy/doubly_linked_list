@@ -1,4 +1,4 @@
-COPTS=-Wall -g -c -O0 
+COPTS=-Wall -g -c -O0 -std=c99
 OBJS=linked_list.o \
 
 EXES=test \

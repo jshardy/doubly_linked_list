@@ -66,6 +66,14 @@ int list_append(list_t *list, void *data);
 int list_prepend(list_t *list, void *data);
 
 /**********************************************************************
+ * Purpose: Returns item at index
+ * Precondition: Pass a valid list_t* and a valid index
+ * Postcondition: Returns address of list_item_t->data
+ *                Returns NULL if index is out of range
+ *                or list is empty.
+ ************************************************************************/
+void *list_at_index(list_t *list, int index);
+/**********************************************************************
  * Purpose: Iterates over list executing user specified function with
  *          the data.
  * Precondition: Pass a valid *list and a valid function pointer.

@@ -90,9 +90,23 @@ int list_prepend(list_t *list, void *data)
     return 0;
 }
 
-void *at_index(int index)
+/**********************************************************************
+ * Purpose: Returns item at index
+ * Precondition: Pass a valid list_t* and a valid index
+ * Postcondition: Returns address of list_item_t->data
+ *                Returns NULL if index is out of range
+ *                or list is empty.
+ ************************************************************************/
+void *list_at_index(list_t *list, int index)
 {
-    // TODO
+    list_item_t *travel = list->head;
+    if(list && list->head && index >= 0 && index < list->size)
+    {
+        for(int i = 0; i < index; i++)
+            travel = travel->next;
+
+        return travel->data;
+    }
     return NULL;
 }
 
