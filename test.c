@@ -57,6 +57,10 @@ int main()
         // list_remove_data(list, strings[i]);
     }
     
+    char *find_test = list_find(list, "Test string #7");
+    
+    if(find_test)
+        printf("%s\n%s\n%s\n", find_test, find_test, find_test);
 
     // fprintf(stdout, "Linked list size: %d\n", list->size);
 

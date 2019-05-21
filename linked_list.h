@@ -66,6 +66,13 @@ int list_append(list_t *list, void *data);
 int list_prepend(list_t *list, void *data);
 
 /**********************************************************************
+ * Purpose: Finds an item in item in list and returns item
+ * Precondition: Pass a valid *list and valid data
+ * Postcondition: Returns address to object. Returns NULL on error.
+ ************************************************************************/
+void *list_find(list_t *list, void *data);
+
+/**********************************************************************
  * Purpose: Returns item at index
  * Precondition: Pass a valid list_t* and a valid index
  * Postcondition: Returns address of list_item_t->data
