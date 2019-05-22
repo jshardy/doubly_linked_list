@@ -38,7 +38,7 @@ int list_append(list_t *list, void *data)
     if(!list)
         return -1;
 
-    list_item_t *new_item = calloc(sizeof(list_item_t), 1);
+    list_item_t *new_item = calloc(1, sizeof(list_item_t));
     if(!new_item)
         return -1;
 
@@ -69,7 +69,7 @@ int list_prepend(list_t *list, void *data)
     if(!list)
         return -1;
 
-    list_item_t *new_item = calloc(sizeof(list_item_t), 1);
+    list_item_t *new_item = calloc(1, sizeof(list_item_t));
     if(!new_item)
         return -1;
 
