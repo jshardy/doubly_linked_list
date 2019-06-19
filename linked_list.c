@@ -16,12 +16,10 @@
 list_t *list_init(int (*match)(const void *key1, const void *key2),
                   void (*destroy)(void *data))
 {
-    list_t *new_list = malloc(sizeof(list_t));
-
+    list_t *new_list = calloc(1, sizeof(list_t));
     if(!new_list)
         return NULL;
 
-    memset(new_list, 0, sizeof(list_t));
     new_list->destroy = destroy;
     new_list->match = match;
 
@@ -56,6 +54,7 @@ int list_append(list_t *list, void *data)
         new_item->previous = list->tail;
         list->tail = new_item;
     }
+
     return 0;
 }
 
@@ -288,6 +287,9 @@ void list_destroy(list_t *list)
 void list_set_match(list_t *list, 
     int (*match)(const void *key1, const void *key2))
 {
+    if(!list)
+        return;
+
     list->match = match;
 }
 
@@ -302,6 +304,9 @@ void list_set_match(list_t *list,
  ************************************************************************/
 void list_set_destroy(list_t *list, void (*destroy)(void *data))
 {
+    if(!list)
+        return;
+
     list->destroy = destroy;
 }
 
